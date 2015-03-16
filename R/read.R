@@ -159,3 +159,74 @@ read.grads <- function(filectl) {
   return(dat)
 }
 
+# Funzione R per la lettura di file in formato estra_qaria.
+read.qaria <- function(filename) {
+  hourly <- scan(filename,skip=2,what="",nlines=1)[4]=="hh"
+  dat <- read.fwf(file = filename,
+                  na.strings=c("    -9999.0","     -999.0"),
+                  widths=c(4,rep(3,2+as.integer(hourly)),11),
+                  header=FALSE,skip=3)
+  header=scan(filename, skip=2, what="", n=4++as.integer(hourly))
+  names(dat) <- header
+  strTime <- paste(dat$aaaa,dat$mm,dat$gg,sep="-")
+  if(hourly) {
+    strTime <- paste(strTime," ",dat$hh,":00",sep="")
+  } else {
+    strTime <- paste(strTime," 00:00",sep="")    
+  }
+  Time <- as.POSIXct(strTime,tz="BST")
+  out <- data.frame(Time=Time, Value=dat[,ncol(dat)])
+  names(out)[2] <- names(dat)[ncol(dat)]
+  return(out)
+}
+
+## legge output di query SQL, tra cui le anagrafiche di stazione
+read.sql <- function(file) {
+  check <- substr(scan(file,what="",sep="\n",blank.lines.skip = F),1,3)
+  nsk <- which(check=="---")[1]
+  row <- scan(file,skip=nsk-1,nlines=1,what="")
+  hea <- scan(file,skip=nsk-2,nlines=1,what="")
+  data <- read.fwf(file,width=nchar(row)+1,skip=nsk)
+  colnames(data) <- hea
+  last <- which(rowSums(!is.na(data))<1)[1]-1
+  data <- data[1:last,]
+  return(data)
+}
+
+## legge una lista di file qaria e un file di anagrafica
+## e assembla tutto in una tabella "long"
+qaria2long <- function(datafiles,
+                       anafile,
+                       codes=NULL) {
+  nf <- length(datafiles)
+  ana <- read.sql(anafile)
+  for (i in 1:nf) {
+    if(is.null(codes)) {
+      code <- substr(datafiles[i],
+                      rev(gregexpr("_",datafiles[i])[[1]])[1]+1,
+                      rev(gregexpr("\\.",datafiles[i])[[1]][1]-1))
+    } else {
+      code <- codes[i]
+    }
+    dat <- read.qaria(datafiles[i])
+    idx <- which(as.numeric(code)==as.numeric(as.character(ana$CODE)))
+    if(length(idx)==1) {
+      Dat <- data.frame(dat, 
+                        Name=rep(trim(as.character(ana[idx,"NAME"])),nrow(dat)),
+                        Municipality=rep(trim(as.character(ana[idx,"MUNICIPALITY"])),nrow(dat)),
+                        Code=rep(code,nrow(dat)),
+                        Lat=rep(ana[idx,"LAT"],nrow(dat)),
+                        Lon=rep(ana[idx,"LON"],nrow(dat)),
+                        Elev=rep(ana[idx,"ELEV"],nrow(dat)),
+                        Type=rep(ana[idx,"CLA"],nrow(dat)))
+      if(!exists("Tab")) {
+        Tab <- Dat
+      } else {
+        Tab <- rbind(Tab,Dat)
+      }
+    }
+  }
+  Tab <- droplevels(Tab)
+  return(Tab)
+}
+
