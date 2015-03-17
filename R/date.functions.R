@@ -120,5 +120,3 @@ ITholidays <- function(years) {
   return(out)
 }
 
-
-

@@ -5,7 +5,8 @@
 ##  - proxies
 
 ## read NetCDF as provided by Arpa Emilia-Romagna
-read.ncdf.arpaer <- function(con=NULL, pollutant="pm10", lev=1, tz="UTC") {
+read.ncdf.arpaer <- function(con=NULL, pollutant="pm10", lev=1,
+                             tz.in="UTC", tz.out="Africa/Algiers") {
   if(class(con)!="ncdf") {   ## existing file or connection
     nc   <- open.ncdf(con)
   } else {                    ## ncdf object
@@ -14,7 +15,8 @@ read.ncdf.arpaer <- function(con=NULL, pollutant="pm10", lev=1, tz="UTC") {
   lon  <- get.var.ncdf(nc,varid="lon")
   lat  <- get.var.ncdf(nc,varid="lat")
   Time <- as.POSIXct(get.var.ncdf(nc,varid="Times"), 
-                     format="%Y-%m-%d_%H:%M:%S", tz=tz)
+                     format="%Y-%m-%d_%H:%M:%S", tz=tz.in)
+  Time <- tz.change(time.in=Time,tz.in=tz.in,tz.out=tz.out)
   value  <- get.var.ncdf(nc,varid=pollutant)
   if(length(dim(value))==4) {
     value <- value[,,lev,]
