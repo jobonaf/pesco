@@ -44,6 +44,7 @@ dailyObs <- function(data, statistic, pollutant,
       Out<-rbind(Out,out)
     }
   }
+  rownames(Out) <- 1:nrow(Out)
   return(Out)
 }
 
@@ -56,7 +57,7 @@ dailyCtm <- function(data, statistic) {
   } else stop(paste("'",statistic,"' is not supported. Please choose one of '",
                     paste(acc.stats,collapse="', '"),"'",
                     sep=""))
-  Out <- list(coords=data$coords, time=names(out), data=aperm(out,perm=c(2,3,1)))
+  Out <- list(coords=data$coords, time=dimnames(out)[[1]], data=aperm(out,perm=c(2,3,1)))
   return(Out)
 }
 

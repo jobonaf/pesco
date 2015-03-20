@@ -1,12 +1,12 @@
 ## load hourly observation
 data(NO2.obs)
 
-## calculate daily averages
-NO2.obs.ave <- dailyObs(NO2.obs,statistic="mean",pollutant="NO2")
-boxplot(data=NO2.obs.max, NO2~Time, range=0, border="orange", col="orange", lty=1)
-
 ## calculate daily maxima
 NO2.obs.max <- dailyObs(NO2.obs,statistic="max",pollutant="NO2")
+boxplot(data=NO2.obs.max, NO2~Time, range=0, border="orange", col="orange", lty=1)
+
+## calculate daily averages
+NO2.obs.ave <- dailyObs(NO2.obs,statistic="mean",pollutant="NO2")
 rm(NO2.obs)
 boxplot(data=NO2.obs.max, NO2~Time, range=0, border="orange", col="orange", lty=1)
 boxplot(data=NO2.obs.ave, NO2~Time, range=0, border="olivedrab", col="olivedrab", lty=1, add=T, xaxt="n", yaxt="n")

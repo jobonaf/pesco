@@ -17,44 +17,20 @@ NO2.obs <- qaria2long(datafiles=ff,       ## reads obs.PM10 data and...
 save(NO2.obs,file="../data/NO2.obs.rda")    ## ...saves the data
 
 ## Elevation
-elevation <- read.geodata(file="data/elev_1km.dat",
-                          header=F,     ## reads the elevation and...
-                          coords.col=1:2,data.col=3)
-save(elevation,
-     file="../data/elevation.rda")      ## ...saves it
+elevation <- read.field(file="data/elev_1km.dat",header=F,coords.col=1:2,data.col=3)
+save(elevation,file="../data/elevation.rda")      
 
 ## Population
-population <- read.geodata(file="data/pop_1km.txt.2010",
-                          header=T,sep=",",     ## reads the population and...
-                          coords.col=1:2,data.col=3)
-save(population,
-     file="../data/population.rda")      ## ...saves it
+population <- read.field(file="data/pop_1km.txt.2010",header=T,sep=",",coords.col=1:2,data.col=3)
+save(population,file="../data/population.rda") 
 
 ## Emissions 
-PM10.summer <- read.geodata(file="data/PM10_est.txt.2010",
-                            header=F,     
-                            coords.col=1:2,data.col=3)
-PM10.summer[[1]] <- PM10.summer[[1]]*1000 ## converts coordinates in meters
-PM10.winter <- read.geodata(file="data/PM10_inv.txt.2010",
-                            header=F,     
-                            coords.col=1:2,data.col=3)
-PM10.winter[[1]] <- PM10.summer[[1]]*1000
-PM10.annual <- read.geodata(file="data/PM10_ann.txt.2010",
-                            header=F,     
-                            coords.col=1:2,data.col=3)
-PM10.annual[[1]] <- PM10.annual[[1]]*1000
-NOx.summer <- read.geodata(file="data/NOx_est.txt.2010",
-                            header=F,     
-                            coords.col=1:2,data.col=3)
-NOx.summer[[1]] <- NOx.summer[[1]]*1000
-NOx.winter <- read.geodata(file="data/NOx_inv.txt.2010",
-                            header=F,     
-                            coords.col=1:2,data.col=3)
-NOx.winter[[1]] <- NOx.winter[[1]]*1000
-NOx.annual <- read.geodata(file="data/NOx_ann.txt.2010",
-                            header=F,     
-                            coords.col=1:2,data.col=3)
-NOx.annual[[1]] <- NOx.annual[[1]]*1000
+PM10.summer <- read.field(file="data/PM10_est.txt.2010",header=F,coords.col=1:2,data.col=3,coords.fact=1000)
+PM10.winter <- read.field(file="data/PM10_inv.txt.2010",header=F,coords.col=1:2,data.col=3,coords.fact=1000)
+PM10.annual <- read.field(file="data/PM10_ann.txt.2010",header=F,coords.col=1:2,data.col=3,coords.fact=1000)
+NOx.summer <- read.field(file="data/NOx_est.txt.2010",header=F,coords.col=1:2,data.col=3,coords.fact=1000)
+NOx.winter <- read.field(file="data/NOx_inv.txt.2010",header=F,coords.col=1:2,data.col=3,coords.fact=1000)
+NOx.annual <- read.field(file="data/NOx_ann.txt.2010",header=F,coords.col=1:2,data.col=3,coords.fact=1000)
 emissions <- list(PM10.summer=PM10.summer,
                   PM10.winter=PM10.winter,
                   PM10.annual=PM10.annual,

@@ -1,20 +1,20 @@
-Hour   <- function(x,tz="BST") as.numeric(format(as.POSIXct(x, tz=tz), format="%H"))
+Hour   <- function(x,tz="Africa/Algiers") as.numeric(format(as.POSIXct(x, tz=tz), format="%H"))
 
-Month  <- function(x,tz="BST") as.numeric(format(as.POSIXct(x, tz=tz), format="%m"))
+Month  <- function(x,tz="Africa/Algiers") as.numeric(format(as.POSIXct(x, tz=tz), format="%m"))
 
-Year   <- function(x,tz="BST") as.numeric(format(as.POSIXct(x, tz=tz), format="%Y"))
+Year   <- function(x,tz="Africa/Algiers") as.numeric(format(as.POSIXct(x, tz=tz), format="%Y"))
 
-Ymd    <- function(x,tz="BST") as.numeric(format(as.POSIXct(x, tz=tz), format="%Y%m%d"))
+Ymd    <- function(x,tz="Africa/Algiers") as.numeric(format(as.POSIXct(x, tz=tz), format="%Y%m%d"))
 
-Ym     <- function(x,tz="BST") as.numeric(format(as.POSIXct(x, tz=tz), format="%Y%m"))
+Ym     <- function(x,tz="Africa/Algiers") as.numeric(format(as.POSIXct(x, tz=tz), format="%Y%m"))
 
-YQ     <- function(x,tz="BST") paste(Year(x,tz=tz),quarters(x),sep="")
+YQ     <- function(x,tz="Africa/Algiers") paste(Year(x,tz=tz),quarters(x),sep="")
 
-Ndays  <- function(x,tz="BST") length(unique(Ymd(x,tz=tz)))
+Ndays  <- function(x,tz="Africa/Algiers") length(unique(Ymd(x,tz=tz)))
 
-Nmonths<- function(x,tz="BST") length(unique(Ym(x,tz=tz)))
+Nmonths<- function(x,tz="Africa/Algiers") length(unique(Ym(x,tz=tz)))
 
-Ndays.in.year <- function(year,tz="BST") {
+Ndays.in.year <- function(year,tz="Africa/Algiers") {
   nd <- length(seq(as.POSIXct(paste(year,"-01-01",sep=""),tz=tz),
                    as.POSIXct(paste(year,"-12-31",sep=""),tz=tz),
                    by="1 days"))
@@ -39,7 +39,7 @@ squeeze<- function(x) {
   return(out)
 }
 
-tz.change <- function(time.in,tz.in="UTC",tz.out="Africa/Algiers") {
+tz.change <- function(time.in,tz.in="UTC",tz.out="Etc/GMT-1") {
   time.txt <- format(time.in, format="%Y-%m-%d %H:%M:%S")
   time.out <- as.POSIXct(time.txt, tz=tz.in)
   attributes(time.out)$tzone <- tz.out

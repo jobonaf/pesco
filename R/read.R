@@ -232,3 +232,11 @@ qaria2long <- function(datafiles,
   return(Tab)
 }
 
+
+read.field <- function(file, coords.col=1:2, data.col=3, coords.fact=1, ...) {
+  dat <- read.table(file,...)
+  out <- list(coords=list(x=dat[,coords.col[1]]*coords.fact,
+                          y=dat[,coords.col[2]]*coords.fact),
+              data=dat[,data.col])
+  return(out)
+}
