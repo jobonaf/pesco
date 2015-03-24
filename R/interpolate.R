@@ -23,6 +23,12 @@ Interp <- function(x,y,z,xp,yp,
   xp <- as.vector(xp)
   yp <- as.vector(yp)
   z <- as.vector(z)
+  idx <- which(!is.na(z))
+  if(length(idx)<length(z)) {
+    x <- x[idx]
+    y <- y[idx]
+    z <- z[idx]
+  }
   acc.methods <- c("linear","spline","nearest")
   acc.types <- c("points","grid")
   if(type=="points") {

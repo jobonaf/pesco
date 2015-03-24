@@ -228,6 +228,7 @@ qaria2long <- function(datafiles,
       }
     }
   }
+  Tab$Elev[Tab$Elev < -100] <- NA
   Tab <- droplevels(Tab)
   return(Tab)
 }

@@ -1,1 +1,2 @@
 daily.synthesis      How to prepare daily data
+prepare.day          Prepare the data to perform the kriging on a specific day

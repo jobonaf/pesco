@@ -1,6 +1,0 @@
-## trend.d
-
-
-## trend.l
-
-

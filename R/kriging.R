@@ -1,11 +1,27 @@
-kriging <- function (xs, ys, obs, xi, yi, 
-                     K.max.dist, K.pairs.min, K.min.dist, 
-                     trend.d, trend.l, lambda) {
-  ##############################
-  ### Fitting and Prediction ###
-  ##############################
+kriging <- function (x.pnt, y.pnt, obs, x.grd, y.grd, 
+                     model,
+                     proxy.1, 
+                     proxy.2=NULL, 
+                     lambda, 
+                     K.max.dist=200000, # meters 
+                     K.min.dist=1000,   # meters 
+                     K.pairs.min=1) {
+  # remove points from the target grid
+  # where model or any proxy is missing
+  idx <- which(!is.na(model$grid$z) & !is.na(proxy.1$grid$z) & !is.na(proxy.2$grid$z))
+  model$grid$z
+  
+  ### Trends
+  if(is.null(proxy2)){
+    trend.d <- ~ boxcox(model$points$z,lambda) + proxy.1$points$z 
+    trend.l <- ~ boxcox(model$grid$z,lambda)   + proxy.1$grid$z   
+  } else {
+    trend.d <- ~ boxcox(model$points$z,lambda) + proxy.1$points$z + proxy.2$points$z
+    trend.l <- ~ boxcox(model$grid$z,lambda)   + proxy.1$grid$z   + proxy.2$grid$z
+  }
+  
   ### Geodata
-  geodata<-as.geodata(cbind(xs,ys,obs))
+  geodata<-as.geodata(cbind(x.pnt,y.pnt,obs))
   
   ### Variogram
   # Empirical variogram calculation
@@ -32,7 +48,7 @@ kriging <- function (xs, ys, obs, xi, yi,
   
   # Kriging
   kkk<-krige.conv(geodata,
-                  loc=cbind(xi,yi),
+                  loc=cbind(x.grd,y.grd),
                   krige= krige.control(
                     type.krige="OK",
                     dist.epsilon= max(K.min.dist,1e-10),
@@ -44,7 +60,7 @@ kriging <- function (xs, ys, obs, xi, yi,
                     lambda=lambda))
   
   # Correction
-  out <- list(K = kkk$predict, 
+  out <- list(K     = kkk$predict, 
               K.var = kkk$krige.var)
   return(out)
 }
