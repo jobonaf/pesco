@@ -1,6 +1,15 @@
 TODO
 ====
 
+#### Datasets
+
+* ~~observed PM10 (estra_qaria)~~
+* ~~observed NO2 (estra_qaria)~~
+* ~~CTM concentrations (NetCDF, one day)~~
+* ~~emissions (ASCII table)~~
+* ~~elevation (ASCII table)~~
+* ~~population (ASCII table)~~
+
 #### Essentials
 
 * ~~read data~~
