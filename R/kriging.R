@@ -1,4 +1,4 @@
-kriging <- function (x.pnt, y.pnt, obs, x.grd, y.grd, 
+kriging <- function (x.pnt, y.pnt, obs,
                      model,
                      proxy.1, 
                      proxy.2=NULL, 
@@ -8,11 +8,31 @@ kriging <- function (x.pnt, y.pnt, obs, x.grd, y.grd,
                      K.pairs.min=1) {
   # remove points from the target grid
   # where model or any proxy is missing
-  idx <- which(!is.na(model$grid$z) & !is.na(proxy.1$grid$z) & !is.na(proxy.2$grid$z))
-  model$grid$z
+  clean.grids <- function(objs) {
+    for (i in 1:length(objs)) {
+      idx <- !is.na(objs[[i]]$grid$z)
+      if(1==1) {Idx <- idx} else {Idx <- Idx&idx}
+    }
+    for (i in 1:length(objs)) {
+      objs[[i]]$grid$x <- objs[[i]]$grid$x[which(Idx)]
+      objs[[i]]$grid$y <- objs[[i]]$grid$y[which(Idx)]
+      objs[[i]]$grid$z <- objs[[i]]$grid$z[which(Idx)]
+    }
+    return(objs)
+  }
+  if(is.null(proxy.2)) {
+    out <- clean.grids(list(model=model, proxy1=proxy.1))
+    model <- out$model
+    proxy.1 <- out$proxy.1
+  } else {
+    out <- clean.grids(list(model=model, proxy.1=proxy.1, proxy.2=proxy.2))
+    model <- out$model
+    proxy.1 <- out$proxy.1
+    proxy.2 <- out$proxy.2
+  }
   
   ### Trends
-  if(is.null(proxy2)){
+  if(is.null(proxy.2)){
     trend.d <- ~ boxcox(model$points$z,lambda) + proxy.1$points$z 
     trend.l <- ~ boxcox(model$grid$z,lambda)   + proxy.1$grid$z   
   } else {
@@ -48,7 +68,7 @@ kriging <- function (x.pnt, y.pnt, obs, x.grd, y.grd,
   
   # Kriging
   kkk<-krige.conv(geodata,
-                  loc=cbind(x.grd,y.grd),
+                  locations=cbind(model$grid$x, model$grid$y),
                   krige= krige.control(
                     type.krige="OK",
                     dist.epsilon= max(K.min.dist,1e-10),
@@ -61,7 +81,9 @@ kriging <- function (x.pnt, y.pnt, obs, x.grd, y.grd,
   
   # Correction
   out <- list(K     = kkk$predict, 
-              K.var = kkk$krige.var)
+              K.var = kkk$krige.var,
+              x     = model$grid$x,
+              y     = model$grid$y)
   return(out)
 }
 

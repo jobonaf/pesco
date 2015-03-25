@@ -315,12 +315,12 @@ signif(data.frame(Obs=PM10.obs.day$PM10,
 <p>The same result can be achieved with one single function.</p>
 
 <pre><code class="r">dataDay &lt;- prepare.day(day=myDay,
-            obs.daily=PM10.obs,
-            ctm.daily=PM10.ctm.ave,
-            emis.winter=emissions$PM10.winter,
-            emis.summer=emissions$PM10.summer,
-            elev=elevation,
-            verbose=TRUE)
+                       obs.daily=PM10.obs,
+                       ctm.daily=PM10.ctm.ave,
+                       emis.winter=emissions$PM10.winter,
+                       emis.summer=emissions$PM10.summer,
+                       elev=elevation,
+                       verbose=TRUE)
 </code></pre>
 
 <pre><code>## [1] &quot;Prepared observations for day 2015-03-02&quot;

@@ -87,12 +87,12 @@ signif(data.frame(Obs=PM10.obs.day$PM10,
 #' The same result can be achieved with one single function.
 
 dataDay <- prepare.day(day=myDay,
-            obs.daily=PM10.obs,
-            ctm.daily=PM10.ctm.ave,
-            emis.winter=emissions$PM10.winter,
-            emis.summer=emissions$PM10.summer,
-            elev=elevation,
-            verbose=TRUE)
+                       obs.daily=PM10.obs,
+                       ctm.daily=PM10.ctm.ave,
+                       emis.winter=emissions$PM10.winter,
+                       emis.summer=emissions$PM10.summer,
+                       elev=elevation,
+                       verbose=TRUE)
 
 ## data at the stations points
 signif(data.frame(Obs=dataDay$obs.day$PM10, 

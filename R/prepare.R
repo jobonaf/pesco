@@ -3,7 +3,8 @@
 
 ## CTM
 prepare.ctm <- function(ctm.daily, day,
-                        x.pnt, y.pnt, x.grd, y.grd) {
+                        x.pnt, y.pnt, x.grd, y.grd,
+                        conc.min=10^-6) {
   time <- sort(unique(as.POSIXct(as.character(ctm.daily$time),tz="Africa/Algiers")))
   if(min(diff.POSIXt(time)) < as.difftime(1,units="days")) {
     stop("Cannot deal with sub-daily data.")
@@ -25,10 +26,12 @@ prepare.ctm <- function(ctm.daily, day,
                     xp=x.grd, yp=y.grd,
                     type="grid",method="linear")
   dum <- expand.grid(ctm.grd$x, ctm.grd$y, KEEP.OUT.ATTRS=F)
+  ctm.pnt$z <- pmax(ctm.pnt$z, conc.min)
+  ctm.grd$z <- pmax(as.vector(ctm.grd$z), conc.min)
   out <- list(points=ctm.pnt,
               grid=list(x=dum[[1]],
                         y=dum[[2]],
-                        z=as.vector(ctm.grd$z)))
+                        z=ctm.grd$z))
   return(out)
 }
 
@@ -83,7 +86,8 @@ prepare.elev <- function(elev,
 }
 
 ## Observed data
-prepare.obs <- function(obs.daily, day) {
+prepare.obs <- function(obs.daily, day,
+                        conc.min=10^-6) {
   time <- sort(unique(as.POSIXct(as.character(obs.daily$Time),tz="Africa/Algiers")))
   if(min(diff.POSIXt(time)) < as.difftime(1,units="days")) {
     stop("Cannot deal with sub-daily data.")
@@ -92,6 +96,7 @@ prepare.obs <- function(obs.daily, day) {
                 subset=(format(Time,format="%Y-%m-%d")==
                           format(as.POSIXct(day),format="%Y-%m-%d")))
   out <- out[which(!is.na(out[,2])),]
+  out[,2] <- pmax(out[,2], conc.min)
   rownames(out) <- 1:nrow(out)
   return(out)
 }
