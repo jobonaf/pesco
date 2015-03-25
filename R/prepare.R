@@ -96,3 +96,54 @@ prepare.obs <- function(obs.daily, day) {
   return(out)
 }
                         
+## Prepare what needed for kriging
+prepare.day <- function(day,
+                        obs.daily,
+                        ctm.daily,
+                        emis.winter, emis.summer,
+                        elev=NULL,
+                        verbose=FALSE) {
+  ## select the required day from the observations
+  obs.day <- prepare.obs(obs.daily=obs.daily, day=day)
+  if(verbose) print(paste("Prepared observations for day ",day,sep=""))
+  
+  ## get the coordinates of the stations with valid data
+  coords.pnt <- ll2utm(rlat=obs.day$Lat,
+                       rlon=obs.day$Lon,
+                       iz=32)
+  x.pnt <- coords.pnt$x
+  y.pnt <- coords.pnt$y
+  
+  ## prepare emissions for the required day and interpolate them to the station points
+  emis.day <- prepare.emis(emis.winter=emis.winter,
+                           emis.summer=emis.summer, 
+                           day=day, x.pnt=x.pnt, y.pnt=y.pnt)
+  if(verbose) print(paste("Prepared emissions for day ",day,sep=""))
+  
+  ## get the coordinates of the reference grid
+  x.grd <- emis.summer$coords$x
+  y.grd <- emis.summer$coords$y
+  
+  ## prepare CTM concentrations for the required day and interpolate them
+  ## to the station points and to the reference grid
+  ctm.day <- prepare.ctm(ctm.daily=ctm.daily, day=day, 
+                         x.pnt=x.pnt, y.pnt=y.pnt, 
+                         x.grd=x.grd, y.grd=y.grd)
+  if(verbose) print(paste("Prepared CTM concentrations for day ",day,sep=""))
+  
+  ## prepare elevation for the required day
+  if(is.null(elev)) {
+    elev.day <- NULL
+  } else {
+    elev.day <- prepare.elev(elev=elevation,
+                             x.pnt=x.pnt, y.pnt=y.pnt, 
+                             z.pnt=obs.day$Elev)  
+    if(verbose) print(paste("Prepared elevation for day ",day,sep=""))
+  }
+  
+  Out <- list(obs.day=obs.day, 
+              ctm.day=ctm.day, 
+              emis.day=emis.day, 
+              elev.day=elev.day)
+  return(Out)
+}

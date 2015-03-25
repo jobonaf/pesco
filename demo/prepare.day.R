@@ -78,8 +78,24 @@ elev.day <- prepare.elev(elev=elevation,
 
 #' Let's have a look to the data we prepared...
 
-## data on the stations points
+## data at the stations points
 signif(data.frame(Obs=PM10.obs.day$PM10, 
                   Ctm=PM10.ctm.day$points$z, 
                   Emis=emis.day$points$z, 
                   Elev=elev.day$points$z), 2)
+
+#' The same result can be achieved with one single function.
+
+dataDay <- prepare.day(day=myDay,
+            obs.daily=PM10.obs,
+            ctm.daily=PM10.ctm.ave,
+            emis.winter=emissions$PM10.winter,
+            emis.summer=emissions$PM10.summer,
+            elev=elevation,
+            verbose=TRUE)
+
+## data at the stations points
+signif(data.frame(Obs=dataDay$obs.day$PM10, 
+                  Ctm=dataDay$ctm.day$points$z, 
+                  Emis=dataDay$emis.day$points$z, 
+                  Elev=dataDay$elev.day$points$z), 2)

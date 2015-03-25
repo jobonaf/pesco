@@ -284,11 +284,56 @@ elev.day &lt;- prepare.elev(elev=elevation,
 
 <p>Let&#39;s have a look to the data we prepared&hellip;</p>
 
-<pre><code class="r">## data on the stations points
+<pre><code class="r">## data at the stations points
 signif(data.frame(Obs=PM10.obs.day$PM10, 
                   Ctm=PM10.ctm.day$points$z, 
                   Emis=emis.day$points$z, 
                   Elev=elev.day$points$z), 2)
+</code></pre>
+
+<pre><code>##    Obs  Ctm  Emis Elev
+## 1   52 38.0 3.100   60
+## 2   32 23.0 0.590  200
+## 3   56 40.0 1.500   30
+## 4   46 33.0 2.200   55
+## 5    7  4.1 0.200 1100
+## 6   58 36.0 0.550   22
+## 7   60 31.0 3.200   30
+## 8   47 29.0 4.900  120
+## 9   10  7.4 0.280  670
+## 10  34 29.0 0.190   11
+## 11  34 31.0 0.084   -2
+## 12  50 36.0 0.560   16
+## 13  49 37.0 1.400    9
+## 14  29 20.0 3.400   35
+## 15  31 35.0 7.500    4
+## 16  29 27.0 0.240    0
+## 17  27 24.0 2.400    5
+## 18  20 17.0 0.900   78
+</code></pre>
+
+<p>The same result can be achieved with one single function.</p>
+
+<pre><code class="r">dataDay &lt;- prepare.day(day=myDay,
+            obs.daily=PM10.obs,
+            ctm.daily=PM10.ctm.ave,
+            emis.winter=emissions$PM10.winter,
+            emis.summer=emissions$PM10.summer,
+            elev=elevation,
+            verbose=TRUE)
+</code></pre>
+
+<pre><code>## [1] &quot;Prepared observations for day 2015-03-02&quot;
+## [1] &quot;Prepared emissions for day 2015-03-02&quot;
+## [1] &quot;Prepared CTM concentrations for day 2015-03-02&quot;
+## [1] &quot;Prepared elevation for day 2015-03-02&quot;
+</code></pre>
+
+<pre><code class="r">## data at the stations points
+signif(data.frame(Obs=dataDay$obs.day$PM10, 
+                  Ctm=dataDay$ctm.day$points$z, 
+                  Emis=dataDay$emis.day$points$z, 
+                  Elev=dataDay$elev.day$points$z), 2)
 </code></pre>
 
 <pre><code>##    Obs  Ctm  Emis Elev

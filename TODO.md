@@ -4,13 +4,13 @@ TODO
 #### Essentials
 
 * test the kriging
-* pollutant-dependent all-inclusive function to prepare all you need to process a day
+* ~~all-inclusive function to prepare all you need to process a day~~
 * write the output of kriging
 * build source package
 
 #### Extras
 
-* crossed-validation
+* cross-validation
 * functions to manage annual runs
 * functions to calculate annual indicators
 
@@ -18,4 +18,4 @@ TODO
 
 * manual (*.Rd)
 * demo for kriging
-* demo for crossed validation
+* demo for cross-validation
