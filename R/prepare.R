@@ -93,7 +93,7 @@ prepare.obs <- function(obs.daily, day,
     stop("Cannot deal with sub-daily data.")
   }
   out <- subset(obs.daily, 
-                subset=(format(Time,format="%Y-%m-%d")==
+                subset=(format(time,format="%Y-%m-%d")==
                           format(as.POSIXct(day),format="%Y-%m-%d")))
   out <- out[which(!is.na(out[,2])),]
   out[,2] <- pmax(out[,2], conc.min)
@@ -140,7 +140,7 @@ prepare.day <- function(day,
   if(is.null(elev)) {
     elev.day <- NULL
   } else {
-    elev.day <- prepare.elev(elev=elevation,
+    elev.day <- prepare.elev(elev=elev,
                              x.pnt=x.pnt, y.pnt=y.pnt, 
                              z.pnt=obs.day$Elev)  
     if(verbose) print(paste("Prepared elevation for day ",day,sep=""))

@@ -126,7 +126,6 @@ read.grads <- function(filectl) {
   if (tl==12)tmin <- paste(substr(tmin,1,2),":00",substr(tmin,3,12),sep="")
   if (date.lang()=="it") tmin <- en2it.date(tmin)
   if (date.lang()=="en") tmin <- it2en.date(tmin)
-  library(chron)
   timemin <- paste(substr(tmin,1,5),":00",sep="")
   datemin <- substr(tmin,7,15)
   datemin <- as.character(as.Date(datemin,format="%d%b%Y"),format="%m/%d/%y")
@@ -136,13 +135,13 @@ read.grads <- function(filectl) {
   steptyp <- substr(dt,(sl-1),(sl))
   nstep   <- as.integer(substr(dt,1,(sl-2)))
   if (steptyp=="yr") {
-    dum <- seq.dates(start,by="years",length=(nt*nstep))
+    dum <- seq.dates(start,by="years",length.=(nt*nstep))
     dum <- dum[seq(1,length=nstep,by=nt)]
     dum <- chron(dum,out.format=date.fmt)
     tdim <- as.character(dum)
   } 
   if (steptyp=="mo") {
-    dum <- seq.dates(start,by="months",length=(nt*nstep))
+    dum <- seq.dates(start,by="months",length.=(nt*nstep))
     dum <- dum[seq(1,length=nt,by=nstep)]
     dum <- chron(dum,out.format=date.fmt)
     tdim <- as.character(dum)
@@ -188,7 +187,7 @@ read.sql <- function(file) {
   nsk <- which(check=="---")[1]
   row <- scan(file,skip=nsk-1,nlines=1,what="")
   hea <- scan(file,skip=nsk-2,nlines=1,what="")
-  data <- read.fwf(file,width=nchar(row)+1,skip=nsk)
+  data <- read.fwf(file,widths=nchar(row)+1,skip=nsk)
   colnames(data) <- hea
   last <- which(rowSums(!is.na(data))<1)[1]-1
   data <- data[1:last,]

@@ -3,40 +3,42 @@
 \alias{pesco}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Data fusion for air quality data
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+PESCO stands for "Post-processing and Evaluation
+             with Statistical methods of a Chemistry-transport-model
+             Output". The package provides functions to perform data
+             fusion for air quality data, correcting the output of a
+             deterministic CTM with observed data, with a Trans-Gaussian
+             Kriging approach.
 }
 \details{
 \tabular{ll}{
 Package: \tab pesco\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2015-02-16\cr
-License: \tab What license is it under?\cr
+Version: \tab 0.2\cr
+Date: \tab 2015-03-26\cr
+License: \tab GPL-2\cr
 }
-~~ An overview of how to use the package, including the most ~~
-~~ important functions ~~
+%~~ An overview of how to use the package, including the most ~~
+%~~ important functions ~~
 }
 \author{
-Who wrote it
+Lucia Paci, Giovanni Bonafe'
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: G.Bonafe' <gbonafe@arpa.emr.it>
 }
-\references{
-~~ Literature or other references for background information ~~
-}
-~~ Optionally other standard keywords, one per line, from file ~~
-~~ KEYWORDS in the R documentation directory ~~
-\keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
-\examples{
-~~ simple examples of the most important functions ~~
-}
+%\references{
+%~~ Literature or other references for background information ~~
+%}
+%~~ Optionally other standard keywords, one per line, from file ~~
+%~~ KEYWORDS in the R documentation directory ~~
+%\keyword{ package }
+%\seealso{
+%~~ Optional links to other man pages, e.g. ~~
+%~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+%}
+%\examples{
+%~~ simple examples of the most important functions ~~
+%}

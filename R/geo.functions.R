@@ -46,16 +46,6 @@ ll2utm <- function(rlat,rlon,iz=32) {
 }
 
 
-# given x,y calculates i,j and cell-number k
-# in the working grid
-cell <- function(x,y,dxi,dyi=dxi,ximin,yimin) {
-  i <- (x-ximin) %/% dxi +1
-  j <- (y-yimin) %/% dyi +1
-  k <- i + nxi*(j-1)
-  return(data.frame(i=i,j=j,k=k))
-}
-
-
 ## given lat and lon vectors
 ## calculates UTM-regular coordinates
 ll2utm.grid <- function(lat,lon,round=-2,iz=32) {

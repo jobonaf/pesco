@@ -93,7 +93,6 @@ format.dates <- function(dates) {
 
 ## Italian holidays
 ITholidays <- function(years) {
-  library(timeDate)
   HO <- holiday(years, c("ITEpiphany", 
                          "ITLiberationDay", 
                          "ITAssumptionOfVirginMary", 

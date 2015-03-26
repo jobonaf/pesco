@@ -81,26 +81,11 @@ Capital <- function(strings) {
 
 # function: trim
 # returns string w/o leading whitespace
-trim.leading <- function (x)  sub("^\\s+", "", x)
+trim.leading <- function(strings)  sub("^\\s+", "", strings)
 
 # returns string w/o trailing whitespace
-trim.trailing <- function (x) sub("\\s+$", "", x)
+trim.trailing <- function(strings) sub("\\s+$", "", strings)
 
 # returns string w/o leading or trailing whitespace
-trim <- function (x) gsub("^\\s+|\\s+$", "", x)
-# trim <- function(string) {
-#   for (i in 1:length(string)) {
-#     dum  <- ""
-#     char <- " "
-#     j <- nchar(string[i])+1
-#     while (char==" ") {
-#       j <- j-1
-#       char <- substr(string[i],j,j)
-#       if (! (char == " ")) {dum <- substr(string[i],1,j)}
-#     }
-#     string[i] <- dum
-#   }
-#   return(string)
-# }
-
+trim <- function(strings) gsub("^\\s+|\\s+$", "", strings)
 

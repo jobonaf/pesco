@@ -17,19 +17,34 @@ TODO
 * ~~kriging~~
 * ~~test the kriging~~
 * ~~all-inclusive function to prepare all you need to process a day~~
-* write the output of kriging
 * build source package
 
 #### Extras
 
+* write the output of kriging
 * cross-validation
 * functions to manage annual runs
 * functions to calculate annual indicators
 
 #### Documentation
 
-* manual (*.Rd)
+* doc of functions:
+ * ~~aqstat.functions.Rd~~
+ * ~~date.functions.Rd~~
+ * ~~time.functions.Rd~~
+ * ~~char.functions.Rd~~
+ * ~~geo.functions.Rd~~
+ * read.Rd
+ * prepare.Rd
+ * daily_synthesis.Rd
+ * boxcox.Rd
+ * kriging.Rd
+ * interpolate.Rd
+ * crossval.Rd
+* ~~doc of datasets~~
 * ~~demo for reading data~~
 * ~~demo for preparing data~~
 * ~~demo for kriging~~
 * demo for cross-validation
+* references
+* description of the theory

@@ -39,7 +39,7 @@ squeeze<- function(x) {
   return(out)
 }
 
-tz.change <- function(time.in,tz.in="UTC",tz.out="Etc/GMT-1") {
+tz.change <- function(time.in,tz.in="UTC",tz.out="Africa/Algiers") {
   time.txt <- format(time.in, format="%Y-%m-%d %H:%M:%S")
   time.out <- as.POSIXct(time.txt, tz=tz.in)
   attributes(time.out)$tzone <- tz.out

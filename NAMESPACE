@@ -1,1 +1,9 @@
 exportPattern("^[[:alpha:]]+")
+importFrom(caTools,runmean)
+importFrom(ncdf,open.ncdf,close.ncdf,get.var.ncdf)
+importFrom(fields,tim.colors,designer.colors)
+importFrom(timeDate,holiday)
+importFrom(chron,chron,seq.dates)
+importFrom(akima,interp,interpp)
+importFrom(geoR,as.geodata,krige.conv,krige.control,likfit,variog)
+
