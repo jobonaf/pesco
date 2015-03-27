@@ -8,6 +8,7 @@
 \alias{Ndays}
 \alias{Nmonths}
 \alias{Ndays.in.year}
+\alias{tz.change}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Functions to manage time
@@ -27,6 +28,8 @@ Ndays  (x, tz = "Africa/Algiers")
 Nmonths(x, tz = "Africa/Algiers")
 
 Ndays.in.year(year, tz = "Africa/Algiers")
+
+tz.change(x, tz.in="UTC", tz.out="Africa/Algiers")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,10 +39,9 @@ vector of class \code{POSIXct}
   \item{year}{
 year (numeric)
 }
-  \item{tz}{
-%%     ~~Describe \code{tz} here~~
-timezone
-}
+  \item{tz}{timezone}
+  \item{tz.in}{original timezone of \code{x}}
+  \item{tz.out}{target timezone}
 }
 %\details{
 %%  ~~ If necessary, more details than the description above ~~

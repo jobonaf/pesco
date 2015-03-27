@@ -54,3 +54,20 @@ ll2utm.grid <- function(lat,lon,round=-2,iz=32) {
                        y=round(utm$y,round))
   return(coords)
 }
+
+## euclidean distance
+Dist <- function(x,y,xi,yi) sqrt((x-xi)^2+(y-yi)^2)
+
+## find nearest
+which.nearest <- function(xo,yo,xi,yi) {
+  out <- rep(NA,length(xo))
+  xo <- as.vector(xo)
+  yo <- as.vector(yo)
+  xi <- as.vector(xi)
+  yi <- as.vector(yi)
+  for(i in 1:length(xo)) {
+    out[i] <- which.min(Dist(xo[i],yo[i],xi,yi))[1]
+  }
+  return(out)
+}
+

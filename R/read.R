@@ -16,7 +16,7 @@ read.ncdf.arpaer <- function(con=NULL, pollutant="pm10", lev=1,
   lat  <- get.var.ncdf(nc,varid="lat")
   Time <- as.POSIXct(get.var.ncdf(nc,varid="Times"), 
                      format="%Y-%m-%d_%H:%M:%S", tz=tz.in)
-  Time <- tz.change(time.in=Time,tz.in=tz.in,tz.out=tz.out)
+  Time <- tz.change(x=Time,tz.in=tz.in,tz.out=tz.out)
   value  <- get.var.ncdf(nc,varid=pollutant)
   if(length(dim(value))==4) {
     value <- value[,,lev,]
@@ -161,13 +161,13 @@ read.grads <- function(filectl) {
 }
 
 # Funzione R per la lettura di file in formato estra_qaria.
-read.qaria <- function(filename) {
-  hourly <- scan(filename,skip=2,what="",nlines=1)[4]=="hh"
-  dat <- read.fwf(file = filename,
+read.qaria <- function(file) {
+  hourly <- scan(file,skip=2,what="",nlines=1)[4]=="hh"
+  dat <- read.fwf(file = file,
                   na.strings=c("    -9999.0","     -999.0"),
                   widths=c(4,rep(3,2+as.integer(hourly)),11),
                   header=FALSE,skip=3)
-  header=scan(filename, skip=2, what="", n=4++as.integer(hourly))
+  header=scan(file, skip=2, what="", n=4++as.integer(hourly))
   names(dat) <- header
   strTime <- paste(dat$aaaa,dat$mm,dat$gg,sep="-")
   if(hourly) {

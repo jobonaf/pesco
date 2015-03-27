@@ -6,19 +6,14 @@
 Data fusion for air quality data
 }
 \description{
-PESCO stands for "Post-processing and Evaluation
-             with Statistical methods of a Chemistry-transport-model
-             Output". The package provides functions to perform data
-             fusion for air quality data, correcting the output of a
-             deterministic CTM with observed data, with a Trans-Gaussian
-             Kriging approach.
+PESCO stands for "Post-processing and Evaluation with Statistical methods of a Chemistry-transport-model Output". The package provides functions to perform data fusion for air quality data, correcting the output of a deterministic CTM with observed data, with a Trans-Gaussian Kriging approach.
 }
 \details{
 \tabular{ll}{
 Package: \tab pesco\cr
 Type: \tab Package\cr
-Version: \tab 0.2\cr
-Date: \tab 2015-03-26\cr
+Version: \tab 0.2.2\cr
+Date: \tab 2015-03-27\cr
 License: \tab GPL-2\cr
 }
 %~~ An overview of how to use the package, including the most ~~

@@ -43,7 +43,7 @@ vector, with the same length as \code{x}, to distinguish different periods (e.g.
 numerical vectors with two elements; defines the running window, e.g. \code{c(-7,0)} is the 8 hours window for 8hr running mean of ozone or carbon monoxide
 }
   \item{necess}{
-number of data needed in each time period
+if >1, number of valid data needed in each time period. If <1, fraction of data needed in each time period.
 }
   \item{nmax.missing}{
 number of missing data accepted in each time period
@@ -58,7 +58,6 @@ threshold
 in \code{shift}, the number of timesteps you want to shift \code{x}; in \code{mean.window}, the width of the window
 }
   \item{hr}{numerical vector of the hours (with the same length as \code{x})}
-  \item{threshold}{threshold}
   \item{estimate}{logical. IF \code{TRUE} the AOT is corrected according to the EU legislation in order to take into account the number of missing values}
   \item{hr.min}{first hour of the timerange over which AOT is calculated}
   \item{hr.max}{last hour of the timerange over which AOT is calculated}

@@ -26,15 +26,17 @@ dailyObs <- function(data, statistic, pollutant,
                      Time="Time", Code="Code",
                      others=c("Name","Municipality",
                               "Lat","Lon","Elev","Type")) {
-  codes <- unique(data[,Code])
+  codes <- unique(data[,Code])  ## extract station codes
   flag=TRUE
   for (code in codes) {
     #print(code)
-    dat <- data[data[,Code]==code,]
+    dat <- data[data[,Code]==code,] ## select data of a single station
     ttt <- dat[,Time]
     sta <- dailyStat(x=dat[,pollutant],time=ttt,statistic,necess=0.75)
-    out <- data.frame(sta, names(sta),
-                      dat[rep(1,length(sta)),
+    ## build a dataframe with...
+    out <- data.frame(sta,   ## ...daily statistic,...       
+                      names(sta),  ## ...dates and...
+                      dat[rep(1,length(sta)),  ## ...station attributes
                           c(Code,others)])
     colnames(out) <- c(pollutant, Time, Code, others)
     if(flag) {

@@ -1,19 +1,3 @@
-## euclidean distance
-Dist <- function(x,y,xi,yi) sqrt((x-xi)^2+(y-yi)^2)
-
-## find nearest
-which.nearest <- function(x,y,xi,yi) {
-  out <- rep(NA,length(x))
-  x <- as.vector(x)
-  y <- as.vector(y)
-  xi <- as.vector(xi)
-  yi <- as.vector(yi)
-  for(i in 1:length(x)) {
-    out[i] <- which.min(Dist(x[i],y[i],xi,yi))[1]
-  }
-  return(out)
-}
-
 ## interpolation (to grid or to sparse points)
 Interp <- function(x,y,z,xp,yp,
                    method="linear",

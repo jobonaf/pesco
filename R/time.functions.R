@@ -21,26 +21,8 @@ Ndays.in.year <- function(year,tz="Africa/Algiers") {
   return(nd)
 }
 
-squeeze<- function(x) {
-  if(length(x)==0) {
-    out <- "-"
-  } else {
-    x <- sort(x,decreasing=F)
-    xb <- c(NA,x)[1:length(x)]
-    xa <- c(x,NA)[2:(1+length(x))]
-    ext <- (xa-x)>1 | (x-xb)>1
-    sel <- which(is.na(ext)|ext)
-    x.sel <- x[sel]
-    sela <- c(sel,NA)[2:(1+length(sel))]
-    sym <- c("-",",")[as.numeric(sela-sel==1)+1]
-    sym[is.na(sym)] <- ""    
-    out <- paste(rbind(x.sel,sym),collapse="")
-  }
-  return(out)
-}
-
-tz.change <- function(time.in,tz.in="UTC",tz.out="Africa/Algiers") {
-  time.txt <- format(time.in, format="%Y-%m-%d %H:%M:%S")
+tz.change <- function(x,tz.in="UTC",tz.out="Africa/Algiers") {
+  time.txt <- format(x, format="%Y-%m-%d %H:%M:%S")
   time.out <- as.POSIXct(time.txt, tz=tz.in)
   attributes(time.out)$tzone <- tz.out
   return(time.out)
