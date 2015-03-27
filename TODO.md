@@ -17,7 +17,7 @@ TODO
 - [x] kriging
 - [x] test the kriging
 - [x] all-inclusive function to prepare all you need to process a day
-- [ ] build source package
+- [x] build source package
 
 #### Extras
 
