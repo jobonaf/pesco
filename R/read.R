@@ -190,6 +190,7 @@ read.sql <- function(file) {
   data <- read.fwf(file,widths=nchar(row)+1,skip=nsk)
   colnames(data) <- hea
   last <- which(rowSums(!is.na(data))<1)[1]-1
+  last <- min(last, nrow(data), na.rm=T)
   data <- data[1:last,]
   return(data)
 }

@@ -15,6 +15,9 @@ prepare.ctm <- function(ctm.daily, day,
     stop(paste("Cannot find CTM data for ",day,sep=""))
   }
   ctm.day <- ctm.daily$data[,,idx]
+  if(sum(!is.na(ctm.day))==0) {
+    stop(paste("No valid CTM data for ",day,sep=""))
+  }
   ctm.pnt <- Interp(x=ctm.daily$coords$x,
                     y=ctm.daily$coords$y,
                     z=ctm.day,
