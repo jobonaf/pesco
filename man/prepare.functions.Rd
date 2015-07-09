@@ -25,7 +25,8 @@ prepare.emis(emis.winter, emis.summer, day,
 prepare.elev(elev, x.pnt, y.pnt, 
              z.pnt = rep(NA,length(x.pnt)),
              x.grd = NULL, y.grd = NULL)   
-prepare.obs(obs.daily, day, conc.min = 10^-6)
+prepare.obs(obs.daily, day, pollutant,
+             conc.min = 10^-6)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -44,6 +45,7 @@ prepare.obs(obs.daily, day, conc.min = 10^-6)
  \describe{
  \item{coords}{coordinates, a list of 2 numeric vectors x and y}
  \item{data}{numeric vector}}}
+\item{pollutant}{name of the column with pollutant concentations}
 \item{verbose}{logical; if \code{TRUE} some messages are given}
 \item{x.pnt}{numeric vector of x coordinates of the stations}
 \item{y.pnt}{numeric vector of y coordinates of the stations}

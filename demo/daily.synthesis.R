@@ -6,7 +6,7 @@
 
 #' ## Demo: How to prepare daily data for PESCO
 #' You can reproduce the following R code with 
-#' ```demo(daily.sinthesis)``` after loading package ```pesco```.
+#' ```demo(daily.synthesis)``` after loading package ```pesco```.
 
 ## load package
 require(pesco)
@@ -50,5 +50,6 @@ data(PM10.ctm)
 ## calculate daily averages
 PM10.ctm.ave <- dailyCtm(PM10.ctm, statistic="mean")
 rm(PM10.ctm)
+library(fields)
 filled.contour(PM10.ctm.ave$data[,,1],color.palette=tim.colors)
 

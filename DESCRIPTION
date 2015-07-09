@@ -1,8 +1,8 @@
 Package: pesco
 Type: Package
 Title: Data fusion for air quality data
-Version: 0.2.4
-Date: 2015-06-22
+Version: 0.3.0
+Date: 2015-07-09
 Author: Lucia Paci, Giovanni Bonafe'
 Maintainer: G.Bonafe' <gbonafe@arpa.emr.it>
 Imports: geoR, akima, fields, caTools, ncdf, timeDate, chron

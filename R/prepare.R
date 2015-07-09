@@ -89,18 +89,18 @@ prepare.elev <- function(elev,
 }
 
 ## Observed data
-prepare.obs <- function(obs.daily, day,
+prepare.obs <- function(obs.daily, day, pollutant,
                         conc.min=10^-6) {
   time <- sort(unique(as.POSIXct(as.character(obs.daily$Time),tz="Africa/Algiers")))
   if(min(diff.POSIXt(time)) < as.difftime(1,units="days")) {
     stop("Cannot deal with sub-daily data.")
   }
   out <- subset(obs.daily, 
-                subset=(format(time,format="%Y-%m-%d")==
+                subset=(format(obs.daily$Time,format="%Y-%m-%d")==
                           format(as.POSIXct(day),format="%Y-%m-%d")))
-  out <- out[which(!is.na(out[,2])),]
-  out[,2] <- pmax(out[,2], conc.min)
-  rownames(out) <- 1:nrow(out)
+  out <- out[which(!is.na(out[,pollutant])),]
+  out[,pollutant] <- pmax(out[,pollutant], conc.min, na.rm=T)
+  if(nrow(out)>0) rownames(out) <- 1:nrow(out)
   return(out)
 }
                         
@@ -113,7 +113,7 @@ prepare.day <- function(day,
                         verbose=FALSE) {
   ## select the required day from the observations
   obs.day <- prepare.obs(obs.daily=obs.daily, day=day)
-  if(verbose) print(paste("Prepared observations for day ",day,sep=""))
+  if(verbose) cat(paste("prepare.day: prepared observations for day ",day,"\n",sep=""))
   
   ## get the coordinates of the stations with valid data
   coords.pnt <- ll2utm(rlat=obs.day$Lat,
@@ -126,7 +126,7 @@ prepare.day <- function(day,
   emis.day <- prepare.emis(emis.winter=emis.winter,
                            emis.summer=emis.summer, 
                            day=day, x.pnt=x.pnt, y.pnt=y.pnt)
-  if(verbose) print(paste("Prepared emissions for day ",day,sep=""))
+  if(verbose) cat(paste("prepare.day: prepared emissions for day ",day,"\n",sep=""))
   
   ## get the coordinates of the reference grid
   x.grd <- emis.summer$coords$x
@@ -137,7 +137,7 @@ prepare.day <- function(day,
   ctm.day <- prepare.ctm(ctm.daily=ctm.daily, day=day, 
                          x.pnt=x.pnt, y.pnt=y.pnt, 
                          x.grd=x.grd, y.grd=y.grd)
-  if(verbose) print(paste("Prepared CTM concentrations for day ",day,sep=""))
+  if(verbose) cat(paste("prepare.day: prepared CTM concentrations for day ",day,"\n",sep=""))
   
   ## prepare elevation for the required day
   if(is.null(elev)) {
@@ -146,7 +146,7 @@ prepare.day <- function(day,
     elev.day <- prepare.elev(elev=elev,
                              x.pnt=x.pnt, y.pnt=y.pnt, 
                              z.pnt=obs.day$Elev)  
-    if(verbose) print(paste("Prepared elevation for day ",day,sep=""))
+    if(verbose) cat(paste("prepare.day: prepared elevation for day ",day,"\n",sep=""))
   }
   
   Out <- list(obs.day=obs.day, 

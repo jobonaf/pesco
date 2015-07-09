@@ -1,3 +1,21 @@
+Changes in pesco 0.3.0 [2015-07-09]
+=====================================
+ * now prepare.obs requires pollutant specification
+
+Changes in pesco 0.2.7 [2015-07-08]
+=====================================
+ * in read.qaria changed BST to Africa/Algiers
+ * bug fixed in prepare.obs
+
+Changes in pesco 0.2.6 [2015-07-01]
+=====================================
+ * modified read.ncdf.arpaer
+
+Changes in pesco 0.2.5 [2015-06-23]
+=====================================
+ * bug fixed in qaria2long
+ * modified read.ncdf.arpaer
+
 Changes in pesco 0.2.4 [2015-06-22]
 =====================================
  * bug fixed in read.sql

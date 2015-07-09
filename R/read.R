@@ -17,7 +17,11 @@ read.ncdf.arpaer <- function(con=NULL, pollutant="pm10", lev=1,
   Time <- as.POSIXct(get.var.ncdf(nc,varid="Times"), 
                      format="%Y-%m-%d_%H:%M:%S", tz=tz.in)
   Time <- tz.change(x=Time,tz.in=tz.in,tz.out=tz.out)
-  value  <- get.var.ncdf(nc,varid=pollutant)
+  opts <- c(pollutant, toupper(pollutant), tolower(pollutant))
+  vars <- names(nc$var)
+  pp <- intersect(opts, vars)
+  if(length(pp)==0) stop(paste(pollutant,"not found in",con))
+  value  <- get.var.ncdf(nc,varid=pp)
   if(length(dim(value))==4) {
     value <- value[,,lev,]
   } else if (length(dim(value))!=3) {
@@ -175,7 +179,7 @@ read.qaria <- function(file) {
   } else {
     strTime <- paste(strTime," 00:00",sep="")    
   }
-  Time <- as.POSIXct(strTime,tz="BST")
+  Time <- as.POSIXct(strTime,tz="Africa/Algiers")
   out <- data.frame(Time=Time, Value=dat[,ncol(dat)])
   names(out)[2] <- names(dat)[ncol(dat)]
   return(out)
@@ -206,7 +210,7 @@ qaria2long <- function(datafiles,
     if(is.null(codes)) {
       code <- substr(datafiles[i],
                       rev(gregexpr("_",datafiles[i])[[1]])[1]+1,
-                      rev(gregexpr("\\.",datafiles[i])[[1]][1]-1))
+                      rev(gregexpr("\\.",datafiles[i])[[1]])[1]-1)
     } else {
       code <- codes[i]
     }
