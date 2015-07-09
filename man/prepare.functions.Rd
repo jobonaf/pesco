@@ -14,6 +14,7 @@ Functions to prepare input for \code{kriging}
 }
 \usage{
 prepare.day(day, obs.daily, ctm.daily,
+            pollutant,
             emis.winter, emis.summer,
             elev = NULL, verbose = FALSE)                        
 

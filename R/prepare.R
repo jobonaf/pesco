@@ -108,11 +108,12 @@ prepare.obs <- function(obs.daily, day, pollutant,
 prepare.day <- function(day,
                         obs.daily,
                         ctm.daily,
+                        pollutant,
                         emis.winter, emis.summer,
                         elev=NULL,
                         verbose=FALSE) {
   ## select the required day from the observations
-  obs.day <- prepare.obs(obs.daily=obs.daily, day=day)
+  obs.day <- prepare.obs(obs.daily=obs.daily, day=day, pollutant=pollutant)
   if(verbose) cat(paste("prepare.day: prepared observations for day ",day,"\n",sep=""))
   
   ## get the coordinates of the stations with valid data
