@@ -13,6 +13,7 @@ TODO
 #### Essentials
 
 - [x] read data
+ - [ ] minor bug: obs.data in ArpaER format refers to final time of sampling, so daily average should be 01-24, not 00-23
 - [x] prepare data
 - [x] kriging
 - [x] test the kriging
@@ -21,10 +22,11 @@ TODO
 
 #### Extras
 
-- [ ] write the output of kriging
+- [ ] write the output of kriging to NetCDF
 - [ ] cross-validation
 - [ ] functions to manage annual runs
 - [ ] functions to calculate annual indicators
+- [ ] function to invalidate daily output
 
 #### Documentation
 
@@ -48,3 +50,4 @@ TODO
 - [ ] demo for cross-validation
 - [ ] references
 - [ ] description of the theory
+- [ ] complete Value sections

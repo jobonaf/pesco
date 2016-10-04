@@ -1,7 +1,7 @@
 #' ---
 #' title: "Demo: How to perform the kriging on a specific day"
 #' author: "Giovanni Bonafe'"
-#' date: "March 25rd, 2015"
+#' date: "October 4th, 2016"
 #' ---
 
 #' ## How to perform the kriging on a specific day
@@ -9,8 +9,9 @@
 #' ```demo(kriging)``` after loading package ```pesco```. Note that
 #' some of the commands used here have been already used in ```demo(prepare.day)```.
 
-## load package
+## load packages
 require(pesco)
+require(fields)
 
 ## load data
 data(PM10.obs)
@@ -24,6 +25,7 @@ PM10.ctm.ave <- dailyCtm(PM10.ctm, statistic  =  "mean")
 dataDay <- prepare.day(day = myDay,
                        obs.daily = PM10.obs,
                        ctm.daily = PM10.ctm.ave,
+                       pollutant="PM10",
                        emis.winter = emissions$PM10.winter,
                        emis.summer = emissions$PM10.summer,
                        elev = elevation,

@@ -1,7 +1,7 @@
 #' ---
 #' title: "Demo: How to prepare the data to perform the kriging on a specific day"
 #' author: "Giovanni Bonafe'"
-#' date: "March 23rd, 2015"
+#' date: "October 4th, 2016"
 #' ---
 
 #' ## How to prepare the data to perform the kriging on a specific day
@@ -17,7 +17,8 @@ data(PM10.obs)
 
 ## select the required day from the observations
 myDay <- "2015-03-02"
-PM10.obs.day <- prepare.obs(obs.daily=PM10.obs, day=myDay)
+PM10.obs.day <- prepare.obs(obs.daily=PM10.obs, day=myDay,
+                            pollutant="PM10")
 
 ## get the coordinates of the stations with valid data
 coords.pnt <- ll2utm(rlat=PM10.obs.day$Lat,
@@ -89,6 +90,7 @@ signif(data.frame(Obs=PM10.obs.day$PM10,
 dataDay <- prepare.day(day=myDay,
                        obs.daily=PM10.obs,
                        ctm.daily=PM10.ctm.ave,
+                       pollutant="PM10",
                        emis.winter=emissions$PM10.winter,
                        emis.summer=emissions$PM10.summer,
                        elev=elevation,
