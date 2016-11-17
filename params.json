@@ -1,0 +1,6 @@
+{
+  "name": "pesco",
+  "tagline": "Data fusion for air quality data",
+  "body": "\r\n[![DOI](https://zenodo.org/badge/13024/jobonaf/pesco.svg)](https://zenodo.org/badge/latestdoi/13024/jobonaf/pesco)\r\n\r\n# Authors\r\nLucia Paci, [Giovanni Bonafè](mailto:gbonafe@arpa.emr.it)\r\n\r\n# Description\r\nPESCO stands for \"Post-processing and Evaluation with Statistical methods of a Chemistry-transport-model Output\". The package provides functions to perform data fusion for air quality data, correcting the output of a deterministic CTM with observed data, with a Trans-Gaussian Kriging approach.\r\n\r\n# Installation\r\nYou can install the package by downloading the tarball and (in R)\r\n```\r\ninstall.packages(\"/path/to/tarball/pesco_0.2.2.tar.gz\", repos = NULL, type = \"source\")\r\n```\r\nOtherwise, you can install the latest version directly from GitHub\r\n```\r\nrequire(devtools)\r\ninstall_github(\"jobonaf/pesco\")\r\n```\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
